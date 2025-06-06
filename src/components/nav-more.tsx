@@ -1,6 +1,7 @@
 "use client"
 
-import {type LucideIcon } from "lucide-react"
+import * as React from "react"
+import { LucideIcon } from "lucide-react"
 
 import {
   SidebarGroup,
@@ -10,24 +11,27 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
 
-export function NavMain({
+export function NavMore({
   items,
+  ...props
 }: {
   items: {
     title: string
     url: string
-    icon?: LucideIcon
+    icon: LucideIcon
   }[]
-}) {
+} & React.ComponentPropsWithoutRef<typeof SidebarGroup>) {
   return (
-    <SidebarGroup>
-      <SidebarGroupContent className="flex flex-col gap-2">
+    <SidebarGroup {...props}>
+      <SidebarGroupContent>
         <SidebarMenu>
           {items.map((item) => (
             <SidebarMenuItem key={item.title}>
-              <SidebarMenuButton tooltip={item.title}>
-                {item.icon && <item.icon />}
-                <span>{item.title}</span>
+              <SidebarMenuButton asChild>
+                <a href={item.url}>
+                  <item.icon />
+                  <span>{item.title}</span>
+                </a>
               </SidebarMenuButton>
             </SidebarMenuItem>
           ))}
