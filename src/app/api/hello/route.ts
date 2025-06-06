@@ -1,3 +1,6 @@
+import { checkConnection } from "@/lib/checkUtils"
+
 export async function GET(request: Request) {
-  return new Response('Hello, from API!')
+  await checkConnection()
+  return new Response('Hello, Welcome to Dparkr!')
 }
