@@ -36,9 +36,9 @@ import { useSession } from "next-auth/react"
 
 const data = {
   user: {
-    name: "shadcn",
-    email: "m@example.com",
-    avatar: "/avatars/shadcn.jpg",
+    name: "shri",
+    email: "shri@mail.com",
+    avatar: "https://lh3.googleusercontent.com/a/ACg8ocIVAAhEAF29llJtXcJQLIwBNWWyaVxkPG0G-uTX86jzDbSd4ebF=s576-c-no",
   },
   navMain: [
     {
@@ -152,8 +152,14 @@ const data = {
 }
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
-  const { data: session } = useSession();
-  const user = session?.user || data.user;
+  const { data: session, status } = useSession();
+  const [user, setUser] = React.useState(data.user);
+
+  React.useEffect(() => {
+    if (session?.user) {
+      setUser(session.user);
+    }
+  }, [session?.user]);
 
   return (
     <Sidebar collapsible="offcanvas" {...props}>
