@@ -9,14 +9,14 @@ import AppFeatures from './app-feature';
 import AppFooter from './app-footer';
 
 export default function LandingPage() {
-  const { data: session, status } = useSession();
-  const router = useRouter();
-
-  useEffect(() => {
-    if (status === 'authenticated') {
-      router.push('/dashboard');
-    }
-  }, [status, router]);
+  // const { data: session, status } = useSession();
+  // const router = useRouter();
+  //
+  // useEffect(() => {
+  //   if (status === 'authenticated') {
+  //     router.push('/dashboard');
+  //   }
+  // }, [status, router]);
 
   return (
     <div>
