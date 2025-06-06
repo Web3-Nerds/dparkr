@@ -2,25 +2,20 @@
 
 import * as React from "react"
 import {
-  BarChartIcon,
-  CameraIcon,
   ClipboardListIcon,
-  DatabaseIcon,
-  FileCodeIcon,
-  FileIcon,
-  FileTextIcon,
-  FolderIcon,
   HelpCircleIcon,
   LayoutDashboardIcon,
   ListIcon,
   SearchIcon,
   SettingsIcon,
-  UsersIcon,
+  ReceiptText,
+  CircleParking,
+  StarIcon
 } from "lucide-react"
 
-import { NavDocuments } from "@/components/nav-documents"
-import { NavMain } from "@/components/nav-main"
-import { NavSecondary } from "@/components/nav-secondary"
+import { ParkingOwner } from "./nav-owner"
+import { NavDriver } from "./nav-driver"
+import { NavMore } from "./nav-more"
 import { NavUser } from "@/components/nav-user"
 import {
   Sidebar,
@@ -40,82 +35,71 @@ const data = {
     email: "shri@mail.com",
     avatar: "https://lh3.googleusercontent.com/a/ACg8ocIVAAhEAF29llJtXcJQLIwBNWWyaVxkPG0G-uTX86jzDbSd4ebF=s576-c-no",
   },
-  navMain: [
+  navDriver: [
     {
-      title: "Dashboard",
-      url: "#",
+      title: "Driver Dashboard",
+      url: "/driver",
       icon: LayoutDashboardIcon,
     },
+    // {
+    //   title: "Find Parking",
+    //   url: "/driver/map",
+    //   icon: SearchIcon,
+    // },
     {
-      title: "Lifecycle",
-      url: "#",
+      title: "Bookings",
+      url: "/driver/bookings",
       icon: ListIcon,
     },
     {
-      title: "Analytics",
-      url: "#",
-      icon: BarChartIcon,
+      title: "Favourites",
+      url: "/driver/favourites",
+      icon: StarIcon,
     },
     {
-      title: "Projects",
-      url: "#",
-      icon: FolderIcon,
-    },
-    {
-      title: "Team",
-      url: "#",
-      icon: UsersIcon,
+      title: "Payments & Invoices",
+      url: "/driver/payments",
+      icon: ReceiptText,
     },
   ],
-  navClouds: [
+  navOwner: [
+    // {
+    //   title: "Owner Dashboard",
+    //   url: "/owner/dashboard",
+    //   icon: LayoutDashboardIcon,
+    // },
     {
-      title: "Capture",
-      icon: CameraIcon,
-      isActive: true,
-      url: "#",
-      items: [
-        {
-          title: "Active Proposals",
-          url: "#",
-        },
-        {
-          title: "Archived",
-          url: "#",
-        },
-      ],
+      title: "My Parking Spaces",
+      url: "/owner/parkings",
+      icon: CircleParking,
     },
+    // {
+    //   title: "Add New Space",
+    //   url: "/owner/add-space",
+    //   icon: PlusCircleIcon,
+    // },
     {
-      title: "Proposal",
-      icon: FileTextIcon,
-      url: "#",
-      items: [
-        {
-          title: "Active Proposals",
-          url: "#",
-        },
-        {
-          title: "Archived",
-          url: "#",
-        },
-      ],
+      title: "Booking Requests",
+      url: "/owner/requests",
+      icon: ClipboardListIcon,
     },
-    {
-      title: "Prompts",
-      icon: FileCodeIcon,
-      url: "#",
-      items: [
-        {
-          title: "Active Proposals",
-          url: "#",
-        },
-        {
-          title: "Archived",
-          url: "#",
-        },
-      ],
-    },
+    // {
+    //   title: "Availability Calendar",
+    //   url: "/owner/calendar",
+    //   icon: CalendarIcon,
+    // },
+    // {
+    //   title: "Pricing Management",
+    //   url: "/owner/pricing",
+    //   icon: BarChartIcon,
+    // },
+    // {
+    //   title: "Earnings & Payouts",
+    //   url: "/owner/earnings",
+    //   icon: WalletIcon,
+    // },
   ],
-  navSecondary: [
+  navMore: [
     {
       title: "Settings",
       url: "#",
@@ -130,23 +114,6 @@ const data = {
       title: "Search",
       url: "#",
       icon: SearchIcon,
-    },
-  ],
-  documents: [
-    {
-      name: "Data Library",
-      url: "#",
-      icon: DatabaseIcon,
-    },
-    {
-      name: "Reports",
-      url: "#",
-      icon: ClipboardListIcon,
-    },
-    {
-      name: "Word Assistant",
-      url: "#",
-      icon: FileIcon,
     },
   ],
 }
@@ -185,9 +152,9 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         </SidebarMenu>
       </SidebarHeader>
       <SidebarContent>
-        <NavMain items={data.navMain} />
-        <NavDocuments items={data.documents} />
-        <NavSecondary items={data.navSecondary} className="mt-auto" />
+        <NavDriver items={data.navDriver} />
+        <ParkingOwner items={data.navOwner} />
+        <NavMore items={data.navMore} className="mt-auto" />
       </SidebarContent>
       <SidebarFooter>
         <NavUser
