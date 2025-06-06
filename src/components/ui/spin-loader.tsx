@@ -5,7 +5,7 @@ import { LoaderCircle } from 'lucide-react';
 export function FullSpinLoader() {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-background">
-      <LoaderCircle className="h-8 w-8 animate-spin text-primary text-white"/>
+      <LoaderCircle className="h-8 w-8 animate-spin text-primary"/>
     </div>
   );
 }
