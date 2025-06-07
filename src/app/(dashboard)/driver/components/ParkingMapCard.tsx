@@ -10,11 +10,11 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Alert, AlertDescription } from '@/components/ui/alert';
-import { 
-  MapPin, 
-  Navigation, 
-  DollarSign, 
-  Clock, 
+import {
+  MapPin,
+  Navigation,
+  DollarSign,
+  Clock,
   Car,
   Locate,
   AlertCircle,
@@ -70,7 +70,7 @@ export default function ParkingMapCard() {
   const mapRef = useRef<google.maps.Map | null>(null);
 
   const calculateDistance = (lat1: number, lon1: number, lat2: number, lon2: number) => {
-    const R = 6371; 
+    const R = 6371;
     const dLat = (lat2 - lat1) * Math.PI / 180;
     const dLon = (lon2 - lon1) * Math.PI / 180;
     const a =
@@ -243,9 +243,9 @@ export default function ParkingMapCard() {
           <AlertCircle className="h-4 w-4" />
           <AlertDescription>
             {locationError}
-            <Button 
-              variant="outline" 
-              size="sm" 
+            <Button
+              variant="outline"
+              size="sm"
               onClick={getCurrentLocation}
               className="ml-2"
             >
@@ -301,7 +301,7 @@ export default function ParkingMapCard() {
             </div>
           </div>
         </CardHeader>
-        
+
         <CardContent className="p-0">
           <div style={containerStyle} className="relative">
             <GoogleMap
@@ -382,7 +382,7 @@ export default function ParkingMapCard() {
             )}
           </div>
         </CardHeader>
-        
+
         <CardContent>
           {parkingsLoading ? (
             <div className="space-y-4">
@@ -401,75 +401,75 @@ export default function ParkingMapCard() {
               ))}
             </div>
           ) : nearestParkings.length > 0 ? (
-<div className="space-y-4">
-  {nearestParkings.map((parking, index) => (
-    <Card
-      key={parking.id}
-      className="border-l-4 border-l-green-500 hover:shadow-md transition-shadow"
-    >
-      <CardContent className="p-4">
-        <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-          
-          {/* Left info */}
-          <div className="flex-1 space-y-2">
-            <div className="flex items-center gap-2">
-              <h3 className="font-semibold text-lg">{parking.title}</h3>
-              {index === 0 && (
-                <Badge className="bg-green-100 text-green-800 text-xs flex items-center">
-                  <Star className="h-3 w-3 mr-1" />
-                  Closest
-                </Badge>
-              )}
+            <div className="space-y-4">
+              {nearestParkings.map((parking, index) => (
+                <Card
+                  key={parking.id}
+                  className="border-l-4 border-l-green-500 hover:shadow-md transition-shadow"
+                >
+                  <CardContent className="p-4">
+                    <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+
+                      {/* Left info */}
+                      <div className="flex-1 space-y-2">
+                        <div className="flex items-center gap-2">
+                          <h3 className="font-semibold text-lg">{parking.title}</h3>
+                          {index === 0 && (
+                            <Badge className="bg-green-100 text-green-800 text-xs flex items-center">
+                              <Star className="h-3 w-3 mr-1" />
+                              Closest
+                            </Badge>
+                          )}
+                        </div>
+
+                        <div className="flex items-start gap-2">
+                          <MapPin className="h-4 w-4 text-muted-foreground mt-0.5 flex-shrink-0" />
+                          <p className="text-sm text-muted-foreground line-clamp-2">
+                            {parking.address}
+                          </p>
+                        </div>
+
+                        <div className="flex flex-wrap items-center gap-6">
+                          <div className="flex items-center gap-1">
+                            <DollarSign className="h-4 w-4 text-green-600" />
+                            <span className="font-bold text-green-600">
+                              ₹{parking.pricePerHour}
+                            </span>
+                            <span className="text-sm text-muted-foreground">/hr</span>
+                          </div>
+
+                          <div className="flex items-center gap-1">
+                            <Route className="h-4 w-4 text-blue-600" />
+                            <span className="text-sm font-medium text-blue-600">
+                              {parking.distance.toFixed(1)} km
+                            </span>
+                          </div>
+
+                          <div className="flex items-center gap-1">
+                            <Clock className="h-4 w-4 text-orange-600" />
+                            <span className="text-sm text-orange-600">
+                              ~{Math.round(parking.distance * 3)} min drive
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Button */}
+                      <div className="w-full md:w-auto flex-shrink-0">
+                        <Button
+                          onClick={() => handleBookingClick(parking)}
+                          className="w-full md:w-auto bg-green-600 hover:bg-green-700"
+                          size="lg"
+                        >
+                          <Car className="h-4 w-4 mr-2" />
+                          Book Now
+                        </Button>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
             </div>
-
-            <div className="flex items-start gap-2">
-              <MapPin className="h-4 w-4 text-muted-foreground mt-0.5 flex-shrink-0" />
-              <p className="text-sm text-muted-foreground line-clamp-2">
-                {parking.address}
-              </p>
-            </div>
-
-            <div className="flex flex-wrap items-center gap-6">
-              <div className="flex items-center gap-1">
-                <DollarSign className="h-4 w-4 text-green-600" />
-                <span className="font-bold text-green-600">
-                  ₹{parking.pricePerHour}
-                </span>
-                <span className="text-sm text-muted-foreground">/hr</span>
-              </div>
-
-              <div className="flex items-center gap-1">
-                <Route className="h-4 w-4 text-blue-600" />
-                <span className="text-sm font-medium text-blue-600">
-                  {parking.distance.toFixed(1)} km
-                </span>
-              </div>
-
-              <div className="flex items-center gap-1">
-                <Clock className="h-4 w-4 text-orange-600" />
-                <span className="text-sm text-orange-600">
-                  ~{Math.round(parking.distance * 3)} min drive
-                </span>
-              </div>
-            </div>
-          </div>
-
-          {/* Button */}
-          <div className="w-full md:w-auto flex-shrink-0">
-            <Button
-              onClick={() => handleBookingClick(parking)}
-              className="w-full md:w-auto bg-green-600 hover:bg-green-700"
-              size="lg"
-            >
-              <Car className="h-4 w-4 mr-2" />
-              Book Now
-            </Button>
-          </div>
-        </div>
-      </CardContent>
-    </Card>
-  ))}
-</div>
           ) : (
             <Card className="text-center py-8">
               <CardContent>
