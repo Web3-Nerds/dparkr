@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 
 interface UserProfileData {
+  id: string;
   name: string;
   email: string;
   image: string;
@@ -10,47 +11,52 @@ interface UserProfileData {
   joinedAt?: string;
 }
 
-export function useUserProfile() {
-  const [userData, setUserData] = useState<UserProfileData | null>(null);
-  const [loading, setLoading] = useState<boolean>(false);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        setLoading(true);
-        setError(null);
-
-        const response = await axios.get<UserProfileData>("/api/user/profile");
-        setUserData(response.data);
-      } catch (err: any) {
-        if (axios.isAxiosError(err)) {
-          if (err.response) {
-            const { status, data } = err.response;
-
-            if (status === 401) {
-              setError("Authentication required. Please sign in again.");
-            } else if (status === 404) {
-              setError("User data not found.");
-            } else {
-              setError(`Failed to fetch user data: ${status} ${data?.message || ""}`);
-            }
-
-            console.error("API Error:", data?.message);
-          } else {
-            setError("No response received from the server.");
-          }
+const fetchUserData = async (): Promise<UserProfileData> => {
+  try {
+    const response = await axios.get<UserProfileData>("/api/user/profile");
+    return response.data;
+  } catch (err: any) {
+    if (axios.isAxiosError(err)) {
+      if (err.response) {
+        const { status, data } = err.response;
+        if (status === 401) {
+          throw new Error("Authentication required. Please sign in again.");
+        } else if (status === 404) {
+          throw new Error("User data not found.");
         } else {
-          console.error("Unexpected Error:", err);
-          setError("An unexpected error occurred while fetching user data.");
+          throw new Error(`Failed to fetch user data: ${status} ${data?.message || ""}`);
         }
-      } finally {
-        setLoading(false);
+      } else {
+        throw new Error("No response received from the server.");
       }
-    };
+    } else {
+      console.error("Unexpected Error:", err);
+      throw new Error("An unexpected error occurred while fetching user data.");
+    }
+  }
+};
 
-    fetchUserData();
-  }, []);
+export function useGetUser() {
+  const {
+    data: userData,
+    isLoading: loading,
+    error,
+  } = useQuery({
+    queryKey: ["user-profile"],
+    queryFn: fetchUserData,
+    retry: (failureCount, error) => {
+      if (error.message.includes("Authentication required")) {
+        return false;
+      }
+      return failureCount < 3;
+    },
+    staleTime: 5 * 60 * 1000,
+    gcTime: 10 * 60 * 1000, 
+  });
 
-  return { userData, loading, error };
+  return {
+    userData: userData || null,
+    loading,
+    error: error?.message || null,
+  };
 }
