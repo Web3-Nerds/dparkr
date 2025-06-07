@@ -51,11 +51,11 @@ const AppHero = () => {
         {/* /> */}
 
 
-      <div className="absolute inset-0">
-        <div className="absolute inset-0 bg-gradient-to-b from-purple-900/10 via-transparent to-blue-900/10" />
-        <div className="absolute top-0 left-1/4 w-96 h-96 bg-purple-500/5 rounded-full blur-3xl" />
-        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl" />
-      </div>
+        <div className="absolute inset-0">
+          <div className="absolute inset-0 bg-gradient-to-b from-purple-900/10 via-transparent to-blue-900/10" />
+          <div className="absolute top-0 left-1/4 w-96 h-96 bg-purple-500/5 rounded-full blur-3xl" />
+          <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl" />
+        </div>
 
         {/* Solana purple gradient */}
         {/* <div className="absolute inset-0 bg-gradient-to-br from-purple-900/20 via-indigo-900/20 to-blue-900/20" /> */}
@@ -81,30 +81,35 @@ const AppHero = () => {
       <nav className="relative z-50 flex justify-between items-center px-8 py-6">
         <div className="flex items-center space-x-2">
           {/* <div className="w-10 h-10 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl flex items-center justify-center"> */}
-            <Image
-              src="/icons/web-app-manifest-192x192.png"
-              alt="Dparker"
-              width={35}
-              height={35}
-            />
+          <Image
+            src="/icons/web-app-manifest-192x192.png"
+            alt="Dparker"
+            width={35}
+            height={35}
+          />
           {/* </div> */}
           <span className="text-2xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
             Dparker
           </span>
         </div>
 
-        <div className="hidden md:flex items-center space-x-8">
-          <a href="#" className="text-gray-300 hover:text-white transition-colors">
-            Features
-          </a>
-          <a href="#" className="text-gray-300 hover:text-white transition-colors">
-            How it Works
-          </a>
-          <a href="#" className="text-gray-300 hover:text-white transition-colors">
-            Community
-          </a>
-          <button 
-            className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 px-6 py-2 rounded-full text-white font-medium transition-all duration-300 transform hover:scale-105"
+        <div className="md:flex items-center space-x-8">
+          {/* <a href="#" className="text-gray-300 hover:text-white transition-colors"> */}
+          {/*   Features */}
+          {/* </a> */}
+          {/* <a href="#" className="text-gray-300 hover:text-white transition-colors"> */}
+          {/*   How it Works */}
+          {/* </a> */}
+          {/* <a href="#" className="text-gray-300 hover:text-white transition-colors"> */}
+          {/*   Community */}
+          {/* </a> */}
+          <button
+            className="bg-gradient-to-br from-white/30 via-gray-300/10 to-white/5
+             hover:from-white/30 hover:via-gray-400/20 hover:to-white/10
+             px-6 py-2 rounded-full text-white font-medium
+             border border-white/30
+             backdrop-blur-xl shadow-[0_4px_30px_rgba(255,255,255,0.1)]
+             transition-all duration-300 transform hover:scale-105"
             onClick={() => router.push('/signin')}
           >
             Get Started
@@ -145,14 +150,14 @@ const AppHero = () => {
 
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6 mb-16">
-            <button 
-              onClick={()=> router.push('/signin')}
+            <button
+              onClick={() => router.push('/signin')}
               className="group relative bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 px-8 py-4 rounded-full text-white font-semibold text-lg transition-all duration-300 transform hover:scale-105 flex items-center space-x-2">
               <span>Start Parking</span>
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </button>
-            <button 
-              onClick={()=> router.push('/signin')}
+            <button
+              onClick={() => router.push('/signin')}
               className="relative bg-white/10 backdrop-blur-sm border border-white/20 hover:bg-white/20 px-8 py-4 rounded-full text-white font-semibold text-lg transition-all duration-300 transform hover:scale-105">
               List Your Space
             </button>
