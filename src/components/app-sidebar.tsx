@@ -28,6 +28,7 @@ import {
 } from "@/components/ui/sidebar"
 import Image from "next/image"
 import { useSession } from "next-auth/react"
+import { useGetUser } from "@/hooks/userProfile"
 
 const data = {
   user: {
@@ -119,14 +120,8 @@ const data = {
 }
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
-  const { data: session, status } = useSession();
-  const [user, setUser] = React.useState(data.user);
-
-  React.useEffect(() => {
-    if (session?.user) {
-      setUser(session.user);
-    }
-  }, [session?.user]);
+  const { userData, loading, error } = useGetUser();
+  // const [user, setUser] = React.useState(data.user);
 
   return (
     <Sidebar collapsible="offcanvas" {...props}>
@@ -156,14 +151,18 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <ParkingOwner items={data.navOwner} />
         <NavMore items={data.navMore} className="mt-auto" />
       </SidebarContent>
-      <SidebarFooter>
-        <NavUser
-          user={{
-            name: user.name,
-            email: user.email,
-            image: user.avatar,
-          }}
-        />
+      <SidebarFooter >
+        {loading ? (
+          <div className="flex items-center space-x-2 animate-pulse">
+            <div className="h-8 w-8 rounded-lg bg-gray-200" />
+            <div className="flex-1 space-y-1">
+              <div className="h-4 w-3/4 bg-gray-200 rounded" />
+              <div className="h-3 w-1/2 bg-gray-200 rounded" />
+            </div>
+          </div>
+        ) : (
+          <NavUser user={userData!} />
+        )}
       </SidebarFooter>
     </Sidebar>
   )

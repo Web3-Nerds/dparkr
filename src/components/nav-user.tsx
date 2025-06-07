@@ -30,16 +30,13 @@ import {
 } from "@/components/ui/sidebar"
 import { useRouter } from "next/navigation"
 import { signOut } from "next-auth/react"
+import { UserProfileData } from "@/hooks/userProfile"
 
-export function NavUser({
-  user,
-}: {
-  user: {
-    name: string
-    email: string
-    image: string
-  }
-}) {
+export interface NavUserProps {
+  user: UserProfileData;
+}
+
+export function NavUser({user}: NavUserProps)  {
   const { isMobile } = useSidebar()
   const router = useRouter();
 
