@@ -28,6 +28,7 @@ export async function GET() {
     }
 
     const userDataForClient = {
+      id: user.id,
       name: user.name,
       email: user.email,
       image: user.avatar || '', 
