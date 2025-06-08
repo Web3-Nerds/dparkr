@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   Dialog,
   DialogContent,
@@ -11,7 +11,7 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
 import { Button } from '@/components/ui/button'
-import MapSelectorCard from './MapSelectorCard' 
+import MapSelectorCard from './MapSelectorCard'
 
 interface Parking {
   id: string
@@ -65,6 +65,14 @@ export default function ParkingModal({
 
   const [longitude, setLongitude] = useState(0);
   const [latitude, setLatitude] = useState(0);
+  const [address, setAddress] = useState<string>('');
+
+  useEffect(() => {
+    handleInputChange('longitude', longitude);
+    handleInputChange('latitude', latitude);
+    handleInputChange('address', address)
+  }, [longitude, latitude]);
+
 
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
@@ -98,50 +106,51 @@ export default function ParkingModal({
             />
           </div>
 
-          <div className="space-y-2">
-            <Label htmlFor="address">Address *</Label>
-            <Input
-              id="address"
-              value={formData.address}
-              onChange={(e) => handleInputChange('address', e.target.value)}
-              placeholder="Enter full address"
-              required
-            />
-          </div>
+          {/* <div className="space-y-2"> */}
+          {/*   <Label htmlFor="address">Address *</Label> */}
+          {/*   <Input */}
+          {/*     id="address" */}
+          {/*     value={formData.address} */}
+          {/*     onChange={(e) => handleInputChange('address', e.target.value)} */}
+          {/*     placeholder="Enter full address" */}
+          {/*     required */}
+          {/*   /> */}
+          {/* </div> */}
 
-          <MapSelectorCard 
-            setLongitude = {setLongitude}
-            setLatitude = {setLatitude}
+          <MapSelectorCard
+            setLongitude={setLongitude}
+            setLatitude={setLatitude}
+            setAddress={setAddress}
           />
 
-          <div className="grid grid-cols-2 gap-4">
-            <div className="space-y-2">
-              <Label htmlFor="latitude">Latitude</Label>
-              <Input
-                id="latitude"
-                type="number"
-                step="any"
-                value={latitude}
-                onChange={(e) =>
-                  handleInputChange('latitude', parseFloat(e.target.value))
-                }
-                placeholder="12.9716"
-              />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="longitude">Longitude</Label>
-              <Input
-                id="longitude"
-                type="number"
-                step="any"
-                value={longitude}
-                onChange={(e) =>
-                  handleInputChange('longitude', parseFloat(e.target.value))
-                }
-                placeholder="77.5946"
-              />
-            </div>
-          </div>
+          {/* <div className="grid grid-cols-2 gap-4"> */}
+          {/*   <div className="space-y-2"> */}
+          {/*     <Label htmlFor="latitude">Latitude</Label> */}
+          {/*     <Input */}
+          {/*       id="latitude" */}
+          {/*       type="number" */}
+          {/*       step="any" */}
+          {/*       value={latitude} */}
+          {/*       onChange={(e) => */}
+          {/*         handleInputChange('latitude', parseFloat(e.target.value)) */}
+          {/*       } */}
+          {/*       placeholder="12.9716" */}
+          {/*     /> */}
+          {/*   </div> */}
+          {/*   <div className="space-y-2"> */}
+          {/*     <Label htmlFor="longitude">Longitude</Label> */}
+          {/*     <Input */}
+          {/*       id="longitude" */}
+          {/*       type="number" */}
+          {/*       step="any" */}
+          {/*       value={longitude} */}
+          {/*       onChange={(e) => */}
+          {/*         handleInputChange('longitude', parseFloat(e.target.value)) */}
+          {/*       } */}
+          {/*       placeholder="77.5946" */}
+          {/*     /> */}
+          {/*   </div> */}
+          {/* </div> */}
 
           <div className="space-y-2">
             <Label htmlFor="pricePerHour">Price per Hour (₹) *</Label>
@@ -171,8 +180,8 @@ export default function ParkingModal({
               {isLoading
                 ? 'Saving...'
                 : editingParking
-                ? 'Update Parking'
-                : 'Create Parking'}
+                  ? 'Update Parking'
+                  : 'Create Parking'}
             </Button>
           </div>
         </form>
