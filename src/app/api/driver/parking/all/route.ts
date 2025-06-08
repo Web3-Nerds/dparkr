@@ -29,7 +29,9 @@ export async function GET(request: NextRequest) {
       },
     });
 
-    return NextResponse.json(parkings);
+    const res = NextResponse.json(parkings);
+    res.headers.set('Cache-Control', 'no-store'); 
+    return res;
   } catch (error) {
     console.error('Error fetching parkings:', error);
     return NextResponse.json(
