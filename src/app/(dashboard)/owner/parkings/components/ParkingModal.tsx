@@ -1,6 +1,6 @@
 'use client'
 
-import React from 'react'
+import React, { useState } from 'react'
 import {
   Dialog,
   DialogContent,
@@ -11,7 +11,7 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
 import { Button } from '@/components/ui/button'
-import { Pencil } from 'lucide-react'
+import MapSelectorCard from './MapSelectorCard' 
 
 interface Parking {
   id: string
@@ -63,9 +63,12 @@ export default function ParkingModal({
     }))
   }
 
+  const [longitude, setLongitude] = useState(0);
+  const [latitude, setLatitude] = useState(0);
+
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-[525px]">
+      <DialogContent className="sm:max-w-[525px] max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle>{titleText}</DialogTitle>
         </DialogHeader>
@@ -106,6 +109,11 @@ export default function ParkingModal({
             />
           </div>
 
+          <MapSelectorCard 
+            setLongitude = {setLongitude}
+            setLatitude = {setLatitude}
+          />
+
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
               <Label htmlFor="latitude">Latitude</Label>
@@ -113,7 +121,7 @@ export default function ParkingModal({
                 id="latitude"
                 type="number"
                 step="any"
-                value={formData.latitude}
+                value={latitude}
                 onChange={(e) =>
                   handleInputChange('latitude', parseFloat(e.target.value))
                 }
@@ -126,7 +134,7 @@ export default function ParkingModal({
                 id="longitude"
                 type="number"
                 step="any"
-                value={formData.longitude}
+                value={longitude}
                 onChange={(e) =>
                   handleInputChange('longitude', parseFloat(e.target.value))
                 }
