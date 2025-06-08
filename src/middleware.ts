@@ -5,23 +5,26 @@ export default withAuth(
   function middleware(req) {
     const { pathname } = req.nextUrl;
     const isAuthenticated = !!req.nextauth.token;
-
+    
+    const protectedRoutes = ['/driver', '/owner', '/profile', '/settings'];
     const publicRoutes = ['/'];
-
-    const protectedRoutes = ['/dashboard', '/driver', 'owner', '/profile', '/settings'];
+    
     const isProtectedRoute = protectedRoutes.some(route => pathname.startsWith(route));
-
-    if (publicRoutes.includes(pathname) && isAuthenticated) {
+    const isPublicRoute = publicRoutes.includes(pathname);
+    
+    if (isPublicRoute && isAuthenticated) {
       return NextResponse.redirect(new URL('/driver', req.url));
     }
-
+    
     if (isProtectedRoute && !isAuthenticated) {
       return NextResponse.redirect(new URL('/', req.url));
     }
+    
+    return NextResponse.next();
   },
   {
     callbacks: {
-      authorized: () => true,
+      authorized: () => true, 
     },
   }
 );
@@ -29,7 +32,6 @@ export default withAuth(
 export const config = {
   matcher: [
     '/',
-    '/dashboard/:path*',
     '/profile/:path*',
     '/settings/:path*',
     '/driver/:path*',

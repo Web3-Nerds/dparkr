@@ -7,6 +7,7 @@ export async function GET(request: NextRequest) {
     const parkings = await db.parking.findMany({
       where: {
         isActive: true,
+        deletedAt: null,
       },
       include: {
         owner: {
