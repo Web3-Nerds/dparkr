@@ -94,7 +94,7 @@ export default function Page() {
 
     try {
       if (editingParking) {
-        const response = await fetch(`/api/owner/parking/${editingParking.id}`, {
+        const response = await fetch(`/api/owner/parking?id=${editingParking.id}`, {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(formData),
@@ -131,7 +131,7 @@ export default function Page() {
   const handleDelete = async (parkingId: string) => {
     setDeletingId(parkingId)
     try {
-      const response = await fetch(`/api/owner/parking/${parkingId}`, {
+      const response = await fetch(`/api/owner/parking?id=${parkingId}`, {
         method: 'DELETE',
       })
 
