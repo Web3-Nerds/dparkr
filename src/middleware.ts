@@ -6,7 +6,7 @@ export default withAuth(
     const { pathname } = req.nextUrl;
     const isAuthenticated = !!req.nextauth.token;
     
-    const protectedRoutes = ['/driver', '/owner', '/profile', '/settings'];
+    const protectedRoutes = ['/driver', '/owner', '/profile', '/settings', 'account'];
     const publicRoutes = ['/'];
     
     const isProtectedRoute = protectedRoutes.some(route => pathname.startsWith(route));
@@ -36,5 +36,6 @@ export const config = {
     '/settings/:path*',
     '/driver/:path*',
     '/owner/:path*',
+    '/account/:path*',
   ]
 };

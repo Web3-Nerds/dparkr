@@ -18,7 +18,7 @@ interface MapSelectorCardProps {
 
 export default function MapSelectorCard({ setLongitude, setLatitude, setAddress }: MapSelectorCardProps) {
   const { isLoaded } = useLoadScript({
-    googleMapsApiKey: 'AIzaSyDklIht6GrUVe6cWrp5VTTC3tSqny_NQkQ',
+    googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY!,
   });
 
   const [currentPosition, setCurrentPosition] = useState<{ lat: number; lng: number } | null>(null);
@@ -30,7 +30,7 @@ export default function MapSelectorCard({ setLongitude, setLatitude, setAddress 
   const reverseGeocode = async (lat: number, lng: number) => {
     try {
       const res = await fetch(
-        `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&result_type=street_address|locality&key=AIzaSyDklIht6GrUVe6cWrp5VTTC3tSqny_NQkQ`
+        `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&result_type=street_address|locality&key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY!}`
       );
       const data = await res.json();
       // console.log(data)
