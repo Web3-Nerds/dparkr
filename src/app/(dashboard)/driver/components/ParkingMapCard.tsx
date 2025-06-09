@@ -311,9 +311,10 @@ export default function ParkingMapCard() {
               onLoad={onMapLoad}
               options={{
                 zoomControl: true,
-                mapTypeControl: false,
+                cameraControl: false,
+                // mapTypeControl: false,
                 streetViewControl: false,
-                fullscreenControl: false,
+                // fullscreenControl: false,
                 styles: [
                   {
                     featureType: "poi",
