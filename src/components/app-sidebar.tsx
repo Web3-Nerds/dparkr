@@ -106,22 +106,21 @@ const data = {
       url: "#",
       icon: SettingsIcon,
     },
-    {
-      title: "Get Help",
-      url: "#",
-      icon: HelpCircleIcon,
-    },
-    {
-      title: "Search",
-      url: "#",
-      icon: SearchIcon,
-    },
+    // {
+    //   title: "Get Help",
+    //   url: "#",
+    //   icon: HelpCircleIcon,
+    // },
+    // {
+    //   title: "Search",
+    //   url: "#",
+    //   icon: SearchIcon,
+    // },
   ],
 }
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const { userData, loading, error } = useGetUser();
-  // const [user, setUser] = React.useState(data.user);
 
   return (
     <Sidebar collapsible="offcanvas" {...props}>
@@ -130,14 +129,14 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           <SidebarMenuItem>
             <SidebarMenuButton
               asChild
-              className="data-[slot=sidebar-menu-button]:!p-1.5"
+              className="data-[slot=sidebar-menu-button]:!p-1.5 h-12"
             >
               <a href="#">
                 <Image
                   src="/icons/web-app-manifest-192x192.png"
                   alt="Dparker"
-                  width={30}
-                  height={30}
+                  width={45}
+                  height={45}
                 />
 
                 {/* <span className="text-base font-semibold">Dparkr</span> */}

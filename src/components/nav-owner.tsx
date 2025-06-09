@@ -40,7 +40,7 @@ export function ParkingOwner({
       <SidebarMenu>
         {items.map((item) => (
           <SidebarMenuItem key={item.title}>
-            <SidebarMenuButton asChild>
+            <SidebarMenuButton asChild size='lg'>
               <a href={item.url}>
                 <item.icon />
                 <span>{item.title}</span>
@@ -74,7 +74,7 @@ export function ParkingOwner({
           </SidebarMenuItem>
         ))}
         <SidebarMenuItem>
-          <SidebarMenuButton className="text-sidebar-foreground/70">
+          <SidebarMenuButton className="text-sidebar-foreground/70" size='lg'>
             <MoreHorizontalIcon className="text-sidebar-foreground/70" />
             <span>More</span>
           </SidebarMenuButton>

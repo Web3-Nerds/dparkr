@@ -27,8 +27,8 @@ export function NavDriver({
         <SidebarMenu>
           {items.map((item) => (
             <a href={item.url} key={item.title}>
-              <SidebarMenuItem key={item.title}>
-                <SidebarMenuButton tooltip={item.title}>
+              <SidebarMenuItem key={item.title} >
+                <SidebarMenuButton tooltip={item.title} size='lg'>
                   {item.icon && <item.icon />}
                   <span>{item.title}</span>
                 </SidebarMenuButton>
