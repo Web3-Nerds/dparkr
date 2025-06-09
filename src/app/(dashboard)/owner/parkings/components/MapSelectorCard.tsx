@@ -108,6 +108,20 @@ export default function MapSelectorCard({ setLongitude, setLatitude, setAddress 
         center={currentPosition}
         zoom={15}
         onClick={onMapClick}
+        options={{
+          zoomControl: true,
+          cameraControl: false,
+          // mapTypeControl: false,
+          streetViewControl: false,
+          // fullscreenControl: false,
+          // styles: [
+          //   {
+          //     featureType: "poi",
+          //     elementType: "labels",
+          //     stylers: [{ visibility: "off" }]
+          //   }
+          // ]
+        }}
       >
         <Marker
           position={markerPosition}
