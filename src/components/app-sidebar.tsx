@@ -10,7 +10,9 @@ import {
   SettingsIcon,
   ReceiptText,
   CircleParking,
-  StarIcon
+  StarIcon,
+  Wallet,
+  InboxIcon
 } from "lucide-react"
 
 import { ParkingOwner } from "./nav-owner"
@@ -29,6 +31,7 @@ import {
 import Image from "next/image"
 import { useSession } from "next-auth/react"
 import { useGetUser } from "@/hooks/userProfile"
+import { NavUserSkeleton } from "./ui/nav-user-skeleton"
 
 const data = {
   user: {
@@ -82,7 +85,7 @@ const data = {
     {
       title: "Booking Requests",
       url: "/owner/requests",
-      icon: ClipboardListIcon,
+      icon: InboxIcon,
     },
     // {
     //   title: "Availability Calendar",
@@ -101,6 +104,11 @@ const data = {
     // },
   ],
   navMore: [
+    {
+      title: "My Wallet",
+      url: "/account",
+      icon: Wallet,
+    },
     {
       title: "Settings",
       url: "#",
@@ -150,18 +158,8 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <ParkingOwner items={data.navOwner} />
         <NavMore items={data.navMore} className="mt-auto" />
       </SidebarContent>
-      <SidebarFooter >
-        {loading ? (
-          <div className="flex items-center space-x-2 animate-pulse">
-            <div className="h-8 w-8 rounded-lg bg-gray-200" />
-            <div className="flex-1 space-y-1">
-              <div className="h-4 w-3/4 bg-gray-200 rounded" />
-              <div className="h-3 w-1/2 bg-gray-200 rounded" />
-            </div>
-          </div>
-        ) : (
-          <NavUser user={userData!} />
-        )}
+      <SidebarFooter>
+        {loading ? <NavUserSkeleton /> : <NavUser user={userData!} />}
       </SidebarFooter>
     </Sidebar>
   )

@@ -17,7 +17,9 @@ const pageTitles: Record<string, string> = {
 
 export function SiteHeader() {
   const pathname = usePathname()
-  const title = pageTitles[pathname] || 'Dashboard'
+  const title =
+    pathname.startsWith('/account') ? 'Wallet' :
+    pageTitles[pathname] || 'Dashboard'
   const { toggleSidebar } = useSidebar()
 
   return (
