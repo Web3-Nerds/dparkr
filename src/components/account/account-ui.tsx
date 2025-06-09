@@ -15,15 +15,27 @@ import {
   useRequestAirdrop,
   useTransferSol,
 } from './account-data-access'
+import { Button } from '../ui/button'
+import { useRouter } from 'next/navigation'
 
 export function AccountBalance({ address }: { address: PublicKey }) {
   const query = useGetBalance({ address })
+  const { disconnect } = useWallet()
+  const router = useRouter();
+
+  const handleDisconnect = () => {
+    disconnect()
+    router.push('/account');
+  }
 
   return (
-    <div>
-      <h1 className="text-5xl font-bold cursor-pointer" onClick={() => query.refetch()}>
+    <div className='flex items-center justify-between'>
+      <h1 className="text-5xl font-bold cursor-pointer bg-gradient-to-r from-[#9945FF] via-[#14F195] to-[#00FFFF] text-transparent bg-clip-text" onClick={() => query.refetch()}>
         {query.data ? <BalanceSol balance={query.data} /> : '...'} SOL
       </h1>
+      <Button variant="destructive" onClick={() => handleDisconnect()}>
+        Disconnect Account
+      </Button>
     </div>
   )
 }
@@ -134,7 +146,7 @@ export function AccountTokens({ address }: { address: PublicKey }) {
           {query.data.length === 0 ? (
             <div>No token accounts found.</div>
           ) : (
-            <table className="table border-4 rounded-lg border-separate border-base-300">
+            <table className="table border-2 rounded-lg border-separate border-base-300">
               <thead>
                 <tr>
                   <th>Public Key</th>
@@ -211,11 +223,11 @@ export function AccountTransactions({ address }: { address: PublicKey }) {
       </div>
       {query.isError && <pre className="alert alert-error">Error: {query.error?.message.toString()}</pre>}
       {query.isSuccess && (
-        <div>
+        <div className='overflow-x-auto'>
           {query.data.length === 0 ? (
             <div>No transactions found.</div>
           ) : (
-            <table className="table border-4 rounded-lg border-separate border-base-300">
+            <table className="table border-2 rounded-lg border-separate border-base-300">
               <thead>
                 <tr>
                   <th>Signature</th>
