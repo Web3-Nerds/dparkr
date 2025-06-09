@@ -33,7 +33,7 @@ export async function GET(req: NextRequest) {
 
 export async function PATCH(req: NextRequest) {
   try {
-    const { bookingId } = await req.json();
+    const { bookingId, status } = await req.json();
 
     if (!bookingId) {
       return NextResponse.json({ error: 'Missing bookingId' }, { status: 400 });
@@ -41,7 +41,7 @@ export async function PATCH(req: NextRequest) {
 
     const booking = await db.booking.update({
       where: { id: bookingId },
-      data: { status: 'CONFIRMED' },
+      data: { status: status },
       include: {
         user: {
           select: { name: true, email: true },

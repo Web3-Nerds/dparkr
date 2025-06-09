@@ -24,6 +24,12 @@ interface OwnerBooking {
   };
 }
 
+enum BookingStatusEnum {
+  PENDING = "PENDING",
+  CONFIRMED = "CONFIRMED",
+  CANCELLED = "CANCELLED",
+}
+
 export default function BookingRequestsPage() {
   const { userData } = useGetUser();
   const [bookings, setBookings] = useState<OwnerBooking[]>([]);
@@ -55,7 +61,7 @@ export default function BookingRequestsPage() {
       await fetch('/api/owner/bookings', {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ bookingId, action: 'CONFIRM' }),
+        body: JSON.stringify({ bookingId, status: BookingStatusEnum.CONFIRMED }),
       });
       await fetchBookings();
     } catch (err) {
@@ -71,7 +77,7 @@ export default function BookingRequestsPage() {
       await fetch('/api/owner/bookings', {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ bookingId, action: 'CANCEL' }),
+        body: JSON.stringify({ bookingId, status: BookingStatusEnum.CANCELLED }),
       });
       await fetchBookings();
     } catch (err) {
