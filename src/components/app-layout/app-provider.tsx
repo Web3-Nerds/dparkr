@@ -13,7 +13,7 @@ export default function AppProviders({ children }: Readonly<{ children: React.Re
     <ReactQueryProvider>
       <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
         <AuthProvider session={session}>
-          <ClusterProvider clusterName='devnet'>
+          <ClusterProvider >
             <SolanaProvider>{children}</SolanaProvider>
           </ClusterProvider>
         </AuthProvider>
