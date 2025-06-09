@@ -3,7 +3,7 @@
 import { clusterApiUrl, Connection } from '@solana/web3.js'
 import { atom, useAtomValue, useSetAtom } from 'jotai'
 import { atomWithStorage } from 'jotai/utils'
-import { createContext, ReactNode, useContext } from 'react'
+import { createContext, ReactNode, useContext, useEffect } from 'react'
 import toast from 'react-hot-toast'
 
 export interface Cluster {
@@ -66,11 +66,16 @@ export interface ClusterProviderContext {
 
 const Context = createContext<ClusterProviderContext>({} as ClusterProviderContext)
 
-export function ClusterProvider({ children }: { children: ReactNode }) {
+export function ClusterProvider({ children, clusterName='devnet' }: { children: ReactNode, clusterName?: string }) {
   const cluster = useAtomValue(activeClusterAtom)
   const clusters = useAtomValue(activeClustersAtom)
   const setCluster = useSetAtom(clusterAtom)
   const setClusters = useSetAtom(clustersAtom)
+
+  const defaultCluster = clusters.find(c => c.name === clusterName) || clusters[0]
+  useEffect(() => {
+    setCluster(defaultCluster)
+  }, [defaultCluster, setCluster])
 
   const value: ClusterProviderContext = {
     cluster,
