@@ -178,20 +178,20 @@ const AppHero = () => {
           </div>
 
           {/* Stats */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto pb-10">
-            {stats.map((stat, index) => (
-              <div
-                key={index}
-                className={`text-center transition-all duration-700 hover:scale-105 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
-                style={{ transitionDelay: `${index * 150 + 500}ms` }}
-              >
-                <div className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent mb-2">
-                  {stat.number}
-                </div>
-                <div className="text-gray-400 font-medium">{stat.label}</div>
-              </div>
-            ))}
-          </div>
+          {/* <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto pb-10"> */}
+          {/*   {stats.map((stat, index) => ( */}
+          {/*     <div */}
+          {/*       key={index} */}
+          {/*       className={`text-center transition-all duration-700 hover:scale-105 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`} */}
+          {/*       style={{ transitionDelay: `${index * 150 + 500}ms` }} */}
+          {/*     > */}
+          {/*       <div className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent mb-2"> */}
+          {/*         {stat.number} */}
+          {/*       </div> */}
+          {/*       <div className="text-gray-400 font-medium">{stat.label}</div> */}
+          {/*     </div> */}
+          {/*   ))} */}
+          {/* </div> */}
         </div>
       </div>
 
